@@ -1,8 +1,12 @@
 package com.osequeiros.photosearchtv
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.os.Bundle
 
-class PhotosActivity : AppCompatActivity() {
+class PhotosActivity : Activity() {
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
 }
