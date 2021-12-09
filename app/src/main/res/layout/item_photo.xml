@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height"
-    android:layout_margin="@dimen/item_margin">
+    android:layout_margin="@dimen/item_margin"
+    android:background="@drawable/item_background">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_photo"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="1.5dp"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,29 +19,40 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <View
+        android:id="@+id/view_shadow"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:background="@drawable/item_shadow_background"
+        app:layout_constraintBottom_toBottomOf="@+id/image_photo"
+        app:layout_constraintEnd_toEndOf="@+id/image_photo"
+        app:layout_constraintStart_toStartOf="@+id/image_photo" />
+
     <TextView
         android:id="@+id/text_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/item_text_margin_start"
-        android:layout_marginBottom="@dimen/item_text_margin_start"
+        android:layout_marginHorizontal="@dimen/item_text_margin_horizontal"
+        android:layout_marginBottom="@dimen/item_text_margin_bottom"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/on_background"
         app:layout_constraintBottom_toTopOf="@+id/text_author_date"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="US Flag" />
 
     <TextView
         android:id="@+id/text_author_date"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/item_text_margin_start"
-        android:layout_marginBottom="@dimen/item_text_margin_start"
+        android:layout_marginHorizontal="@dimen/item_text_margin_horizontal"
+        android:layout_marginBottom="@dimen/item_text_margin_bottom"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/on_background"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Leo Hunt / May 13 2019" />
 
