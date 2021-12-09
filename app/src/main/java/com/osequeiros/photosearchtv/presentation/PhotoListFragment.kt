@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.osequeiros.photosearchtv.databinding.FragmentPhotoListBinding
 import com.osequeiros.photosearchtv.domain.model.Photo
 import com.osequeiros.photosearchtv.presentation.userintent.PhotoListUserIntent
 import com.osequeiros.photosearchtv.presentation.viewstate.PhotoListViewState
 import com.osequeiros.photosearchtv.presentation.viewstate.PhotoListViewState.*
+import com.osequeiros.photosearchtv.ui.PhotosGridAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -45,15 +48,21 @@ class PhotoListFragment : Fragment() {
 
     private fun render(viewState: PhotoListViewState) {
         when (viewState) {
-            is LoadingState -> {}
-            is EmptyState -> {}
-            is PhotosState -> showPhotos(viewState.photos)
-            is ErrorState -> {}
+            is LoadingState -> {
+            }
+            is EmptyState -> {
+            }
+            is PhotosState -> binding?.showPhotos(viewState.photos)
+            is ErrorState -> {
+            }
         }
     }
 
-    private fun showPhotos(photos: List<Photo>) {
+    private fun FragmentPhotoListBinding.showPhotos(photos: List<Photo>) {
+        val adapter = PhotosGridAdapter(photos)
 
+        recyclerPhotos.layoutManager = GridLayoutManager(context!!, 3)
+        recyclerPhotos.adapter = adapter
     }
 
     override fun onDestroyView() {
