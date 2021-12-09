@@ -1,11 +1,10 @@
 package com.osequeiros.photosearchtv.data.remote
 
-import android.content.Context
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
-class ApiFactory(context: Context) {
+class ApiFactory {
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -21,6 +20,6 @@ class ApiFactory(context: Context) {
         .build()
 
     companion object {
-        const val BASE_URL = "https://www.flickr.com/services/rest"
+        const val BASE_URL = "https://www.flickr.com/services/rest/"
     }
 }

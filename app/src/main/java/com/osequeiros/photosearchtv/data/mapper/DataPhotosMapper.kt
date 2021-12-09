@@ -2,8 +2,9 @@ package com.osequeiros.photosearchtv.data.mapper
 
 import com.osequeiros.photosearchtv.data.remote.model.RemotePhoto
 import com.osequeiros.photosearchtv.domain.model.Photo
+import javax.inject.Inject
 
-class DataPhotosMapper {
+class DataPhotosMapper @Inject constructor() {
 
     fun List<RemotePhoto>.toDomain(): List<Photo> {
         return map { remotePhoto -> remotePhoto.toDomain() }
