@@ -1,4 +1,4 @@
-package com.osequeiros.photosearchtv.presentation
+package com.osequeiros.photosearchtv.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.osequeiros.photosearchtv.databinding.FragmentPhotoListBinding
 import com.osequeiros.photosearchtv.domain.model.Photo
+import com.osequeiros.photosearchtv.presentation.PhotoListViewModel
 import com.osequeiros.photosearchtv.presentation.userintent.PhotoListUserIntent
 import com.osequeiros.photosearchtv.presentation.viewstate.PhotoListViewState
 import com.osequeiros.photosearchtv.presentation.viewstate.PhotoListViewState.*
-import com.osequeiros.photosearchtv.ui.PhotosGridAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -63,7 +63,10 @@ class PhotoListFragment : Fragment() {
 
     private fun FragmentPhotoListBinding.showPhotos(photos: List<Photo>) {
         hideLoading()
-        val adapter = PhotosGridAdapter(photos)
+        val adapter = PhotosGridAdapter(photos) { url ->
+            val action = PhotoListFragmentDirections.actionToDetail(url)
+            findNavController().navigate(action)
+        }
 
         context?.let { safeContext ->
             recyclerPhotos.layoutManager = GridLayoutManager(safeContext, 3)

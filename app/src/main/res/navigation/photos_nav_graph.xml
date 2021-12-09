@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/list_destination"
-        android:name="com.osequeiros.photosearchtv.presentation.PhotoListFragment">
+        android:name="com.osequeiros.photosearchtv.ui.PhotoListFragment">
 
         <action
             android:id="@+id/action_to_detail"
@@ -16,7 +16,13 @@
 
     <fragment
         android:id="@+id/detail_destination"
-        android:name="com.osequeiros.photosearchtv.presentation.PhotoScreenFragment">
+        android:name="com.osequeiros.photosearchtv.ui.PhotoDetailFragment">
+
+        <argument
+            android:name="imageUrl"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
 
     </fragment>
 

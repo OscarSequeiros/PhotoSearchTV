@@ -7,7 +7,8 @@ import com.osequeiros.photosearchtv.databinding.ItemPhotoBinding
 import com.osequeiros.photosearchtv.domain.model.Photo
 
 class PhotosGridAdapter(
-    private val photos: List<Photo>
+    private val photos: List<Photo>,
+    private val onPhotoClick: (String) -> Unit = {},
 ) : RecyclerView.Adapter<PhotoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
@@ -16,7 +17,7 @@ class PhotosGridAdapter(
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.bind(photos[position])
+        holder.bind(photos[position], onPhotoClick)
     }
 
     override fun getItemCount(): Int {

@@ -13,7 +13,7 @@ class PhotoViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(photo: Photo) = with(binding) {
+    fun bind(photo: Photo, onClick: (String) -> Unit = {}) = with(binding) {
         textAuthorDate.text =
             context.getString(R.string.author_name_and_date, photo.authorName, photo.datePublished)
         textTitle.text = photo.title
@@ -24,5 +24,9 @@ class PhotoViewHolder(
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.error)
             .into(imagePhoto)
+
+        imagePhoto.setOnClickListener {
+            onClick(photo.highResolutionUrl)
+        }
     }
 }

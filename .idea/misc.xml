@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/item_shadow_background.xml" value="0.3314814814814815" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2572463768115942" />
         <entry key="app/src/main/res/layout/activity_photos.xml" value="0.2513586956521739" />
+        <entry key="app/src/main/res/layout/fargment_photo_detail.xml" value="0.2513586956521739" />
         <entry key="app/src/main/res/layout/fragment_photo_list.xml" value="0.2572463768115942" />
         <entry key="app/src/main/res/layout/item_photo.xml" value="0.2513586956521739" />
       </map>
