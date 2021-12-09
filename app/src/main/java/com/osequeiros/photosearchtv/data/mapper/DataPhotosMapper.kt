@@ -16,8 +16,8 @@ class DataPhotosMapper @Inject constructor() {
             title = title,
             authorName = ownername,
             datePublished = datetaken,
-            thumbnailUrl = url_n.orEmpty(),
-            highResolutionUrl = url_o.orEmpty()
+            thumbnailUrl = url_s ?: url_n ?: url_m.orEmpty(),
+            highResolutionUrl = url_o ?: url_l ?: url_m.orEmpty(),
         )
     }
 }

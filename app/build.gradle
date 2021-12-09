@@ -21,12 +21,12 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            buildConfigField "String", "FLICKER_API_KEY", "\"b6cb1608a7baa2e74fc6787d410bc0de\""
+            buildConfigField "String", "FLICKR_API_KEY", "\"b6cb1608a7baa2e74fc6787d410bc0de\""
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "FLICKER_API_KEY", "\"b6cb1608a7baa2e74fc6787d410bc0de\""
+            buildConfigField "String", "FLICKR_API_KEY", "\"b6cb1608a7baa2e74fc6787d410bc0de\""
         }
     }
 

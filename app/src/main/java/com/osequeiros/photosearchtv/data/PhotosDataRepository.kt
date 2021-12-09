@@ -12,7 +12,7 @@ class PhotosDataRepository @Inject constructor(
 ) : PhotosRepository {
 
     override suspend fun search(value: String): List<Photo> {
-        val remotePhotos = remoteSource.search(value).photos.photo
+        val remotePhotos = remoteSource.search(value = value).photos.photo
         return with(mapper) { remotePhotos.toDomain() }
     }
 
