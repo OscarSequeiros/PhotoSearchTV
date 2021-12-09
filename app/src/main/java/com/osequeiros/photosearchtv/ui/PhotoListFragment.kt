@@ -13,10 +13,12 @@ import com.osequeiros.photosearchtv.databinding.FragmentPhotoListBinding
 import com.osequeiros.photosearchtv.domain.model.Photo
 import com.osequeiros.photosearchtv.presentation.PhotoListViewModel
 import com.osequeiros.photosearchtv.presentation.userintent.PhotoListUserIntent
+import com.osequeiros.photosearchtv.presentation.userintent.PhotoListUserIntent.*
 import com.osequeiros.photosearchtv.presentation.viewstate.PhotoListViewState
 import com.osequeiros.photosearchtv.presentation.viewstate.PhotoListViewState.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @AndroidEntryPoint
 class PhotoListFragment : Fragment() {
@@ -30,35 +32,42 @@ class PhotoListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPhotoListBinding.inflate(layoutInflater)
+        if (binding == null) {
+            binding = FragmentPhotoListBinding.inflate(layoutInflater)
+            viewModel.process(SeeRecentPhotosDefaultIntent)
+            observeStates()
+        }
         return binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observeStates()
     }
 
     private fun observeStates() {
         lifecycleScope.launchWhenStarted {
-            viewModel.process(PhotoListUserIntent.SeeRecentPhotosDefaultIntent)
-                .collect { viewState -> binding?.render(viewState) }
+            viewModel.state.collect { viewState -> binding?.render(viewState) }
         }
     }
 
     private fun FragmentPhotoListBinding.render(viewState: PhotoListViewState) {
         when (viewState) {
             is LoadingState -> showLoading()
-            is EmptyState -> {
-            }
+            is EmptyState -> showEmptyState()
             is PhotosState -> showPhotos(viewState.photos)
-            is ErrorState -> {
-            }
+            is ErrorState -> showError(viewState.error)
         }
     }
 
     private fun FragmentPhotoListBinding.showLoading() {
         progressLoading.visibility = View.VISIBLE
+    }
+
+    private fun FragmentPhotoListBinding.showEmptyState() {
+        hideLoading()
+        // TODO: [Tech note] We can use a template for empty states.
+    }
+
+    private fun FragmentPhotoListBinding.showError(error: Throwable) {
+        hideLoading()
+        // TODO: [Tech note] We can use a template for errors.
+        //  Also, we can track the error with some tools like Crashlytics
     }
 
     private fun FragmentPhotoListBinding.showPhotos(photos: List<Photo>) {
@@ -76,10 +85,5 @@ class PhotoListFragment : Fragment() {
 
     private fun FragmentPhotoListBinding.hideLoading() {
         progressLoading.visibility = View.GONE
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 }
