@@ -28,6 +28,6 @@ class ApiFactory {
         .build()
 
     companion object {
-        const val BASE_URL = "https://www.flickr.com/services/rest/"
+        const val BASE_URL = "https://www.flickr.com/"
     }
 }
