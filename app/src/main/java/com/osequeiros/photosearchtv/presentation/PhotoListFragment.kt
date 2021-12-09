@@ -42,27 +42,37 @@ class PhotoListFragment : Fragment() {
     private fun observeStates() {
         lifecycleScope.launchWhenStarted {
             viewModel.process(PhotoListUserIntent.SeeRecentPhotosDefaultIntent)
-                .collect { viewState -> render(viewState) }
+                .collect { viewState -> binding?.render(viewState) }
         }
     }
 
-    private fun render(viewState: PhotoListViewState) {
+    private fun FragmentPhotoListBinding.render(viewState: PhotoListViewState) {
         when (viewState) {
-            is LoadingState -> {
-            }
+            is LoadingState -> showLoading()
             is EmptyState -> {
             }
-            is PhotosState -> binding?.showPhotos(viewState.photos)
+            is PhotosState -> showPhotos(viewState.photos)
             is ErrorState -> {
             }
         }
     }
 
+    private fun FragmentPhotoListBinding.showLoading() {
+        progressLoading.visibility = View.VISIBLE
+    }
+
     private fun FragmentPhotoListBinding.showPhotos(photos: List<Photo>) {
+        hideLoading()
         val adapter = PhotosGridAdapter(photos)
 
-        recyclerPhotos.layoutManager = GridLayoutManager(context!!, 3)
-        recyclerPhotos.adapter = adapter
+        context?.let { safeContext ->
+            recyclerPhotos.layoutManager = GridLayoutManager(safeContext, 3)
+            recyclerPhotos.adapter = adapter
+        }
+    }
+
+    private fun FragmentPhotoListBinding.hideLoading() {
+        progressLoading.visibility = View.GONE
     }
 
     override fun onDestroyView() {

@@ -2,7 +2,6 @@ package com.osequeiros.photosearchtv.ui
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.bumptech.glide.Glide
 import com.osequeiros.photosearchtv.R
 import com.osequeiros.photosearchtv.databinding.ItemPhotoBinding
@@ -20,7 +19,8 @@ class PhotoViewHolder(
         textTitle.text = photo.title
 
         Glide.with(context)
-            .load(photo.highResolutionUrl)
+            .load(photo.thumbnailUrl)
+            .centerCrop()
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.error)
             .into(imagePhoto)
