@@ -8,6 +8,6 @@ data class RemotePhoto(
     val title: String,
     val datetaken: String,
     val ownername: String,
-    val url_q: String?,
+    val url_n: String?,
     val url_o: String?,
 )
